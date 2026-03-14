@@ -264,6 +264,54 @@ class OpenAIVideoConfig(BaseVideoConfig):
 
         return video_obj
 
+    def transform_video_extension_request(
+        self,
+        video_id: str,
+        api_base: str,
+        litellm_params: GenericLiteLLMParams,
+        headers: dict,
+        seconds: Optional[str] = None,
+        prompt: Optional[str] = None,
+        extra_body: Optional[Dict[str, Any]] = None,
+    ) -> Tuple[str, Dict]:
+        """
+        Transform the video extension request for OpenAI API.
+
+        OpenAI API expects the following request:
+        - POST /v1/videos/extensions
+        """
+        original_video_id = extract_original_video_id(video_id)
+
+        # Construct the URL for video extension
+        url = f"{api_base.rstrip('/')}/extensions"
+
+        # Prepare the request data with nested video object
+        data: Dict[str, Any] = {"video": {"id": original_video_id}}
+        if prompt is not None:
+            data["prompt"] = prompt
+        if seconds is not None:
+            data["seconds"] = seconds
+
+        # Add any extra body parameters
+        if extra_body:
+            data.update(extra_body)
+
+        return url, data
+
+    def transform_video_extension_response(
+        self,
+        raw_response: httpx.Response,
+        logging_obj: LiteLLMLoggingObj,
+        custom_llm_provider: Optional[str] = None,
+    ) -> VideoObject:
+        """
+        Transform the OpenAI video extension response.
+        Reuses the same response transformation as remix/create.
+        """
+        return self.transform_video_remix_response(
+            raw_response, logging_obj, custom_llm_provider
+        )
+
     def transform_video_list_request(
         self,
         api_base: str,

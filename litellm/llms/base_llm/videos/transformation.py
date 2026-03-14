@@ -189,6 +189,34 @@ class BaseVideoConfig(ABC):
         pass
 
     @abstractmethod
+    def transform_video_extension_request(
+        self,
+        video_id: str,
+        api_base: str,
+        litellm_params: GenericLiteLLMParams,
+        headers: dict,
+        seconds: Optional[str] = None,
+        prompt: Optional[str] = None,
+        extra_body: Optional[Dict[str, Any]] = None,
+    ) -> Tuple[str, Dict]:
+        """
+        Transform the video extension request into a URL and data
+
+        Returns:
+            Tuple[str, Dict]: (url, data) for the video extension request
+        """
+        pass
+
+    @abstractmethod
+    def transform_video_extension_response(
+        self,
+        raw_response: httpx.Response,
+        logging_obj: LiteLLMLoggingObj,
+        custom_llm_provider: Optional[str] = None,
+    ) -> VideoObject:
+        pass
+
+    @abstractmethod
     def transform_video_list_request(
         self,
         api_base: str,

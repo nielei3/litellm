@@ -358,6 +358,8 @@ class CallTypes(str, Enum):
     avideo_retrieve_job = "avideo_retrieve_job"
     video_delete = "video_delete"
     avideo_delete = "avideo_delete"
+    video_extension = "video_extension"
+    avideo_extension = "avideo_extension"
     vector_store_file_create = "vector_store_file_create"
     avector_store_file_create = "avector_store_file_create"
     vector_store_file_list = "vector_store_file_list"
@@ -494,6 +496,8 @@ CallTypesLiteral = Literal[
     "acreate_skill",
     "acreate_realtime_client_secret",
     "arealtime_calls",
+    "video_extension",
+    "avideo_extension",
 ]
 
 # Mapping of API routes to their corresponding call types
@@ -700,6 +704,8 @@ API_ROUTE_TO_CALL_TYPES = {
     ],
     "/videos/{video_id}/remix": [CallTypes.avideo_remix, CallTypes.video_remix],
     "/v1/videos/{video_id}/remix": [CallTypes.avideo_remix, CallTypes.video_remix],
+    "/videos/extensions": [CallTypes.avideo_extension, CallTypes.video_extension],
+    "/v1/videos/extensions": [CallTypes.avideo_extension, CallTypes.video_extension],
     # Vector Stores
     "/vector_stores": [CallTypes.avector_store_create, CallTypes.vector_store_create],
     "/v1/vector_stores": [

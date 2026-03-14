@@ -2204,6 +2204,13 @@ class CreateVideoRequest(TypedDict, total=False):
     timeout: Optional[float]
 
 
+class OpenAIVideoExtensionOptionalParams(TypedDict, total=False):
+    """Optional parameters for OpenAI video extension API."""
+
+    seconds: str
+    prompt: str  # required by OpenAI but optional in the TypedDict for flexibility
+
+
 class OpenAIVideoObject(BaseModel):
     """OpenAI Video Object representing a video generation job."""
 

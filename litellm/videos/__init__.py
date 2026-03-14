@@ -11,6 +11,8 @@ from .main import (
     video_content,
     avideo_remix,
     video_remix,
+    avideo_extension,
+    video_extension,
 )
 
 __all__ = [
@@ -24,4 +26,6 @@ __all__ = [
     "video_content",
     "avideo_remix",
     "video_remix",
+    "avideo_extension",
+    "video_extension",
 ]
